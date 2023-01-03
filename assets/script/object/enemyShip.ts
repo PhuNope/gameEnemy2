@@ -15,7 +15,7 @@ export class enemyShip extends Component {
     private bulletPrefab: Prefab;
     private bulletPool: NodePool;
 
-    start () {
+    start() {
         let collider = this.node.getComponent(Collider2D);
         if (collider) {
             collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
@@ -24,7 +24,7 @@ export class enemyShip extends Component {
         this.createBullet();
     }
 
-    onBeginContact (selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+    onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         if (this.node) {
             let hitObject: Node = otherCollider.node;
             if (hitObject.name.includes("PlayerBullet")) {
@@ -40,7 +40,7 @@ export class enemyShip extends Component {
         }
     }
 
-    private createBullet () {
+    private createBullet() {
         ResourceUtils.loadPrefab("prefab/EnemyBullet", (prefab: Prefab) => {
             this.bulletPrefab = prefab;
 
@@ -56,20 +56,24 @@ export class enemyShip extends Component {
         });
     }
 
-    private fire () {
+    private fire() {
         if (this.bulletPrefab) {
             let bullet: Node = this.bulletPool.get();
+            console.log(bullet);
+
 
             if (bullet) {
-                this.node.addChild(bullet);
-                bullet.setWorldPosition(this.node.getWorldPosition());
+                //this.node.addChild(bullet);
+                this.node.getChildByName("bulletDisplay").addChild(bullet);
+                //bullet.setWorldPosition(this.node.getWorldPosition());
+                //bullet.position = this.node.getPosition();
             }
         }
     }
 
     private timeCount = 0;
 
-    update (deltaTime: number) {
+    update(deltaTime: number) {
         this.timeCount += deltaTime;
 
         if (this.timeCount >= 0.5) {

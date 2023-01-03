@@ -7,21 +7,27 @@ const { ccclass, property } = _decorator;
 export class EnemyBullet extends Component {
     private callback: CallableFunction;
 
-    start () {
+    start() {
 
     }
 
-    setUp (callback: CallableFunction,) {
+    setUp(callback: CallableFunction,) {
         this.callback = callback;
     }
 
-    update (deltaTime: number) {
+    update(deltaTime: number) {
         let cameraWorldPosition = GameData.instance.cameraWorldPosition;
 
-        if (this.node.getWorldPosition().y > cameraWorldPosition.y - Configs.HALF_SCENE_HEIGHT) {
+        // if (this.node.getWorldPosition().y < cameraWorldPosition.y - Configs.HALF_SCENE_HEIGHT) {
+        //     this.callback();
+        // } else {
+        //     this.node.translate(new Vec3(0, -5, 0));
+        // }
+
+        if (this.node.position.y < -Configs.HALF_SCENE_HEIGHT) {
             this.callback();
         } else {
-            this.node.translate(new Vec3(0, -5, 0));
+            this.node.translate(new Vec3(0, -3, 0));
         }
     }
 }
