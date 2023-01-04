@@ -1,24 +1,29 @@
 import { _decorator, Component, Node, Vec3 } from 'cc';
 import { Configs } from '../utils/Configs';
+import { GameData } from '../utils/GameData';
 const { ccclass, property } = _decorator;
 
 @ccclass('butlletController')
 export class butlletController extends Component {
     private callback: CallableFunction;
 
-    start () {
+    start() {
 
     }
 
-    setUp (callback: CallableFunction) {
+    setUp(callback: CallableFunction) {
         this.callback = callback;
     }
 
-    public hitObject () {
+    public hitObject() {
         this.callback();
     }
 
-    update (deltaTime: number) {
+    update(deltaTime: number) {
+        if (GameData.instance.gamePause) {
+            return;
+        }
+
         // let planePosition: Vec3 = this.node.parent.getWorldPosition();
         // let loc: Vec3 = new Vec3(this.node.position.x - planePosition.x, this.node.position.y - planePosition.y);
 

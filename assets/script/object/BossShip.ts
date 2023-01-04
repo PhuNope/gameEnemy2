@@ -1,19 +1,18 @@
 import { _decorator, Collider2D, Component, Contact2DType, instantiate, IPhysics2DContact, Node, NodePool, Prefab, ProgressBar, Vec3 } from 'cc';
 import { butlletController } from '../item/bullet';
 import { ResourceUtils } from '../utils/ResourceUtils';
-import { EnemyBullet } from '../item/EnemyBullet';
-import { Configs } from '../utils/Configs';
+import { BossBullet } from '../item/BossBullet';
 import { GameData } from '../utils/GameData';
-
+import { Configs } from '../utils/Configs';
 const { ccclass, property } = _decorator;
 
-@ccclass('enemyShip')
-export class enemyShip extends Component {
+@ccclass('BossShip')
+export class BossShip extends Component {
     @property(ProgressBar)
     healthBar: ProgressBar;
 
-    private health: number = 5;
-    private healthFull: number = 5;
+    private health: number = 20;
+    private healthFull: number = 20;
 
     private bulletPrefab: Prefab;
     private bulletPool: NodePool;
@@ -46,7 +45,7 @@ export class enemyShip extends Component {
     }
 
     private createBullet() {
-        ResourceUtils.loadPrefab("prefab/EnemyBullet", (prefab: Prefab) => {
+        ResourceUtils.loadPrefab("prefab/BossBullet", (prefab: Prefab) => {
             this.bulletPrefab = prefab;
 
             this.bulletPool = new NodePool();
@@ -54,7 +53,7 @@ export class enemyShip extends Component {
                 let newBullet: Node = instantiate(prefab);
                 this.bulletPool.put(newBullet);
 
-                newBullet.getComponent(EnemyBullet).setUp(() => {
+                newBullet.getComponent(BossBullet).setUp(() => {
                     if (!this.node) {
                         newBullet.destroy();
                     } else {
@@ -97,9 +96,9 @@ export class enemyShip extends Component {
             this.timeCount = 0;
         }
 
-        if (this.node.getWorldPosition().y < this.destroyPosition.y - 1280) {
-            this.node.destroy();
-        }
+        // if (this.node.getWorldPosition().y < this.destroyPosition.y - 1280) {
+        //     this.node.destroy();
+        // }
     }
 }
 

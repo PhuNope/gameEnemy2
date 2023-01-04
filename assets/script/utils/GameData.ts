@@ -7,14 +7,16 @@ export class GameData extends Component {
 
     public cameraWorldPosition: Vec3;
 
-    start () {
+    public gamePause: boolean = false;
+
+    start() {
         if (!GameData.instance) {
             GameData.instance = this;
             director.addPersistRootNode(this.node);
         }
     }
 
-    update (deltaTime: number) {
+    update(deltaTime: number) {
 
     }
 }

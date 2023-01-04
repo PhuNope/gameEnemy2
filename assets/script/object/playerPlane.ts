@@ -1,19 +1,24 @@
 import {
     _decorator,
+    Camera,
+    Collider2D,
     Component,
+    Contact2DType,
     dragonBones,
     EventTouch,
     Input,
     input,
     instantiate,
+    IPhysics2DContact,
     Node,
     NodePool,
     Prefab,
     Vec3,
 } from "cc";
-import { Configs } from "../utils/Configs";
+import { Configs } from '../utils/Configs';
 import { ResourceUtils } from '../utils/ResourceUtils';
 import { butlletController } from "../item/bullet";
+import { GameData } from "../utils/GameData";
 const { ccclass, property } = _decorator;
 
 @ccclass("playerPlane")
@@ -29,15 +34,20 @@ export class playerPlane extends Component {
 
     private bulletDisplay: Node;
 
-    onLoad () {
+    onLoad() {
         this.node.active = false;
     }
 
-    start () {
+    start() {
         this.bulletDisplay = this.node.getParent().getChildByName("bulletDisplay");
+
+        let collider = this.node.getComponent(Collider2D);
+        if (collider) {
+            collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+        }
     }
 
-    public setPlaneType (planeType: number) {
+    public setPlaneType(planeType: number) {
         this.planeType = planeType - 1;
 
         let armatureDisplay = this.planeBody.getComponent(
@@ -53,22 +63,21 @@ export class playerPlane extends Component {
         this.createBullet();
     }
 
-    private setUpInput () {
+    private setUpInput() {
         input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
     }
 
-    private onTouchMove (event: EventTouch) {
+    private onTouchMove(event: EventTouch) {
+        //ham get touch location
         let touchLocation = event.getUILocation();
+        let loc = new Vec3(touchLocation.x - Configs.HALF_SCENE_WIDTH, touchLocation.y - Configs.HALF_SCENE_HEIGHT, 0);
 
-        let loc = new Vec3(
-            touchLocation.x - Configs.HALF_SCENE_WIDTH,
-            touchLocation.y - Configs.HALF_SCENE_HEIGHT
-        );
+        let position = this.node.parent.parent.getChildByName("Camera").getComponent(Camera).screenToWorld(loc);
 
-        this.node.setPosition(loc);
+        this.node.setWorldPosition(position);
     }
 
-    private createBullet () {
+    private createBullet() {
         ResourceUtils.loadPrefab("prefab/PlayerBullet", (prefab: Prefab) => {
             this.bulletPrefab = prefab;
 
@@ -76,7 +85,11 @@ export class playerPlane extends Component {
             for (let i = 0; i < 20; i++) {
                 let newBullet: Node = instantiate(prefab);
                 newBullet.getComponent(butlletController).setUp(() => {
-                    this.bulletPool.put(newBullet);
+                    if (!this.node) {
+                        newBullet.destroy();
+                    } else {
+                        this.bulletPool.put(newBullet);
+                    }
                 });
 
                 this.bulletPool.put(newBullet);
@@ -84,7 +97,7 @@ export class playerPlane extends Component {
         });
     }
 
-    private fire () {
+    private fire() {
         if (this.bulletPrefab) {
             let bullet: Node = this.bulletPool.get();
 
@@ -95,14 +108,27 @@ export class playerPlane extends Component {
         }
     }
 
+    onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
+        if (this.node) {
+            let hitObject: Node = otherCollider.node;
+            if (hitObject.name.includes("EnemyBullet") || hitObject.name.includes("BossBullet")) {
+                GameData.instance.gamePause = true;
+
+                this.node.destroy();
+            }
+        }
+    }
+
     private timeCount = 0;
 
-    update (deltaTime: number) {
+    update(deltaTime: number) {
         this.timeCount += deltaTime;
 
         if (this.timeCount >= 0.2) {
             this.fire();
             this.timeCount = 0;
         }
+
+        //this.node.translate(new Vec3(0, 3, 0));
     }
 }

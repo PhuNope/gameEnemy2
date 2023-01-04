@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "EnemyBullet",
+    "_name": "BossBullet",
     "_objFlags": 0,
     "_native": "",
     "data": {
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "EnemyBullet",
+    "_name": "BossBullet",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -70,7 +70,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "bulletSprite",
+    "_name": "Sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -129,8 +129,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 10,
-      "height": 15
+      "width": 13,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -141,7 +141,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "c2yGC9FhpNF6Y/toYr3ea8"
+    "fileId": "aaAqdL8kNJs7DSCnsQ2uyT"
   },
   {
     "__type__": "cc.Sprite",
@@ -165,7 +165,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "f0d37e24-9607-4c33-b585-402da8426a5e@f9941",
+      "__uuid__": "a50b9c40-3722-4ee1-b84e-5a28a4c79639@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -185,7 +185,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "ccHLpTZyVIVqKfRZJw+Aeu"
+    "fileId": "e812mGPadCPbqwxBxFvKN0"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -195,7 +195,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "8fnzIHdUFPdqNxOfpOB/bT"
+    "fileId": "bajHDVoA1JOLkZr37QTtQH"
   },
   {
     "__type__": "cc.UITransform",
@@ -210,8 +210,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 10,
-      "height": 15
+      "width": 13,
+      "height": 35
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -222,10 +222,10 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "c54tmxSblAQYU8gIGRZIFq"
+    "fileId": "4ecPXApU5P365C1LEyHtnB"
   },
   {
-    "__type__": "725b3phZdhNH4lHiIv1Q1dp",
+    "__type__": "4a154DffvpOQrxTWFMYEsUB",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -239,7 +239,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "b7LKrhJkRDjK5LDLq3j4bp"
+    "fileId": "00p2Zsww1N85IN6vx5w3jA"
   },
   {
     "__type__": "cc.BoxCollider2D",
@@ -265,14 +265,14 @@
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 10,
-      "height": 15
+      "width": 13,
+      "height": 35
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "85bHVpaJNK7rlFatfBrJTA"
+    "fileId": "a94ggml65PWK6J1DPDVtDN"
   },
   {
     "__type__": "cc.RigidBody2D",
@@ -289,7 +289,7 @@
     "bullet": false,
     "awakeOnLoad": true,
     "_group": 1,
-    "_type": 1,
+    "_type": 0,
     "_allowSleep": true,
     "_gravityScale": 1,
     "_linearDamping": 0,
@@ -305,7 +305,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "b9cQWu5c5CV6RNmIm31Ely"
+    "fileId": "73z6qsTthI+JqnGNClddKN"
   },
   {
     "__type__": "cc.PrefabInfo",

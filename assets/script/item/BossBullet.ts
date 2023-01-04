@@ -1,10 +1,10 @@
 import { _decorator, Component, Node, Vec3 } from 'cc';
-import { Configs } from '../utils/Configs';
 import { GameData } from '../utils/GameData';
+import { Configs } from '../utils/Configs';
 const { ccclass, property } = _decorator;
 
-@ccclass('EnemyBullet')
-export class EnemyBullet extends Component {
+@ccclass('BossBullet')
+export class BossBullet extends Component {
     private callback: CallableFunction;
 
     start() {

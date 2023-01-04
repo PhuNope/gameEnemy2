@@ -2,7 +2,7 @@ import { _decorator, Camera, Component, instantiate, log, Node, Prefab } from 'c
 import { ResourceUtils } from '../utils/ResourceUtils';
 import { playerPlane } from '../object/playerPlane';
 import { PlayerData } from '../utils/PlayerData';
-const { ccclass, property }=_decorator;
+const { ccclass, property } = _decorator;
 
 @ccclass('GameModel')
 export class GameModel extends Component {
@@ -14,20 +14,20 @@ export class GameModel extends Component {
 
     playerPlaneNode: Node;
 
-    start () {
+    start() {
 
     }
 
-    public loadPlayerPlane () {
+    public loadPlayerPlane() {
         ResourceUtils.loadPrefab("prefab/PlayerPlane", (playerPlanerPrefab: Prefab) => {
-            this.playerPlaneNode=instantiate(playerPlanerPrefab);
+            this.playerPlaneNode = instantiate(playerPlanerPrefab);
             this.displayPlane.addChild(this.playerPlaneNode);
 
             this.playerPlaneNode.getComponent(playerPlane).setPlaneType(PlayerData.instance.shipType);
         });
     }
 
-    update (deltaTime: number) {
+    update(deltaTime: number) {
 
     }
 }
