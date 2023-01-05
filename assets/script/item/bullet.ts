@@ -27,7 +27,7 @@ export class butlletController extends Component {
         // let planePosition: Vec3 = this.node.parent.getWorldPosition();
         // let loc: Vec3 = new Vec3(this.node.position.x - planePosition.x, this.node.position.y - planePosition.y);
 
-        if (this.node.position.y > Configs.HALF_SCENE_HEIGHT) {
+        if (this.node.getWorldPosition().y > GameData.instance.cameraWorldPosition.y + Configs.HALF_SCENE_HEIGHT) {
             this.callback();
         } else {
             this.node.translate(new Vec3(0, 10, 0));

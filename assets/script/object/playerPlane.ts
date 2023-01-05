@@ -108,6 +108,8 @@ export class playerPlane extends Component {
             if (bullet) {
                 this.bulletDisplay.addChild(bullet);
                 bullet.setWorldPosition(this.node.getWorldPosition());
+
+                //bullet.setParent(this.bulletDisplay.getParent().getParent(), true);
             }
         }
     }
