@@ -58,22 +58,26 @@ export class playerPlane extends Component {
 
         slots[0].displayIndex = this.planeType;
         this.node.active = true;
-        this.setUpInput();
+        //this.setUpInput();
 
         this.createBullet();
     }
 
-    private setUpInput() {
-        input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
-    }
+    // private setUpInput() {
+    //     //input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
+    // }
 
-    private onTouchMove(event: EventTouch) {
-        //ham get touch location
-        let touchLocation = event.getUILocation();
-        let loc = new Vec3(touchLocation.x - Configs.HALF_SCENE_WIDTH, touchLocation.y - Configs.HALF_SCENE_HEIGHT, 0);
+    // private onTouchMove(event: EventTouch) {
+    //     //ham get touch location
+    //     let touchLocation = event.getUILocation();
+    //     let loc = new Vec3(touchLocation.x, touchLocation.y + 1280, 0);
 
-        let position = this.node.parent.parent.getChildByName("Camera").getComponent(Camera).screenToWorld(loc);
+    //     let position = this.node.parent.parent.getChildByName("Camera").getComponent(Camera).screenToWorld(loc);
 
+    //     this.node.setWorldPosition(position);
+    // }
+
+    updatePosition(position: Vec3) {
         this.node.setWorldPosition(position);
     }
 
@@ -114,7 +118,7 @@ export class playerPlane extends Component {
             if (hitObject.name.includes("EnemyBullet") || hitObject.name.includes("BossBullet")) {
                 GameData.instance.gamePause = true;
 
-                this.node.destroy();
+                // this.node.destroy();
             }
         }
     }
@@ -122,6 +126,10 @@ export class playerPlane extends Component {
     private timeCount = 0;
 
     update(deltaTime: number) {
+        if (GameData.instance.gamePause) {
+            return;
+        }
+
         this.timeCount += deltaTime;
 
         if (this.timeCount >= 0.2) {
