@@ -32,7 +32,7 @@ export class GameController extends Component {
     }
 
     private onSetPosition(event: EventTouch) {
-        if (this.gameModel.playerPlaneNode == null) {
+        if (GameData.instance.gamePause) {
             return;
         } else {
             let touchLocation = event.getUILocation();
@@ -45,7 +45,7 @@ export class GameController extends Component {
     }
 
     private clearEventTouch() {
-        
+
     }
 
     update(deltaTime: number) {
